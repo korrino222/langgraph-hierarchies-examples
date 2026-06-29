@@ -11,7 +11,7 @@ from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import AIMessage
 from langchain_core.outputs import ChatGeneration, ChatResult
 
-from examples.example_01_artifact_handoff.tools import format_expense, parse_expense
+from examples.example_02_artifact_handoff.tools import format_expense, parse_expense
 
 _FIXTURES = Path(__file__).resolve().parent / "fixtures"
 

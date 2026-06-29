@@ -1,4 +1,4 @@
-"""CLI entry point for Example 01 — artifact handoff."""
+"""CLI entry point for Example 02 — artifact handoff."""
 
 from __future__ import annotations
 
@@ -11,19 +11,19 @@ from langchain_core.messages import HumanMessage
 from langgraph_hierarchies.state.context import BaseContext
 from langgraph_hierarchies.state.schema import create_base_state_defaults
 
-from examples.example_01_artifact_handoff.agents import (
+from examples.example_02_artifact_handoff.agents import (
     EXTRACTOR_GOAL,
     FORMATTER_GOAL,
     child_graph,
     compile_formatter,
     compile_root,
 )
-from examples.example_01_artifact_handoff.model import (
+from examples.example_02_artifact_handoff.model import (
     RuleBasedModel,
     create_openai_model,
     load_raw_text,
 )
-from examples.example_01_artifact_handoff.tracing import (
+from examples.example_02_artifact_handoff.tracing import (
     apply_project_override,
     build_run_config,
     load_env,
@@ -118,7 +118,7 @@ def run_pipeline(
     project_name = apply_project_override(project)
     config = build_run_config(
         thread_id=thread_id,
-        run_name=f"example-01-{mode}",
+        run_name=f"example-02-{mode}",
         tags=[mode],
     )
 
@@ -151,7 +151,7 @@ def run_replay(fixture_path: Path, *, project: str | None, thread_id: str) -> di
     project_name = apply_project_override(project)
     config = build_run_config(
         thread_id=thread_id,
-        run_name="example-01-replay",
+        run_name="example-02-replay",
         tags=["replay"],
         recursion_limit=20,
     )
@@ -171,7 +171,7 @@ def run_replay(fixture_path: Path, *, project: str | None, thread_id: str) -> di
 def main(argv: list[str] | None = None) -> None:
     load_env()
 
-    parser = argparse.ArgumentParser(description="Example 01 — artifact handoff")
+    parser = argparse.ArgumentParser(description="Example 02 — artifact handoff")
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument(
         "--scripted-ok",
@@ -202,7 +202,7 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument(
         "--project",
         metavar="NAME",
-        help="Override LANGCHAIN_PROJECT for LangSmith (default: langgraph-hierarchies-examples-01)",
+        help="Override LANGCHAIN_PROJECT for LangSmith (default: langgraph-hierarchies-examples-02)",
     )
     args = parser.parse_args(argv)
     thread_id = new_thread_id()

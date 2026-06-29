@@ -13,9 +13,9 @@ from langgraph_hierarchies.state.context import BaseContext
 from langgraph_hierarchies.state.schema import create_base_state_defaults
 from langgraph_hierarchies.tools.builtins import finish_task
 
-from examples.example_01_artifact_handoff.policy import ARTIFACT_POLICY
-from examples.example_01_artifact_handoff.state import HandoffState
-from examples.example_01_artifact_handoff.tools import (
+from examples.example_02_artifact_handoff.policy import ARTIFACT_POLICY
+from examples.example_02_artifact_handoff.state import HandoffState
+from examples.example_02_artifact_handoff.tools import (
     artifact_from_state,
     format_expense,
     parse_expense,

@@ -1,4 +1,4 @@
-"""Tests for Example 01 — artifact handoff."""
+"""Tests for Example 02 — artifact handoff."""
 
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ from langchain_core.runnables import RunnableConfig
 from langgraph_hierarchies.state.context import BaseContext
 from langgraph_hierarchies.state.schema import create_base_state_defaults
 
-from examples.example_01_artifact_handoff.agents import (
+from examples.example_02_artifact_handoff.agents import (
     EXTRACTOR_GOAL,
     FORMATTER_GOAL,
     LLMExtractor,
@@ -19,10 +19,10 @@ from examples.example_01_artifact_handoff.agents import (
     compile_formatter,
     compile_root,
 )
-from examples.example_01_artifact_handoff.model import RuleBasedModel, load_raw_text
-from examples.example_01_artifact_handoff.policy import ARTIFACT_POLICY
-from examples.example_01_artifact_handoff.state import HandoffState
-from examples.example_01_artifact_handoff.tools import format_expense, parse_expense
+from examples.example_02_artifact_handoff.model import RuleBasedModel, load_raw_text
+from examples.example_02_artifact_handoff.policy import ARTIFACT_POLICY
+from examples.example_02_artifact_handoff.state import HandoffState
+from examples.example_02_artifact_handoff.tools import format_expense, parse_expense
 
 pytestmark = [pytest.mark.scripted]
 
@@ -30,7 +30,7 @@ _FIXTURES = (
     Path(__file__).resolve().parents[1]
     / "src"
     / "examples"
-    / "example_01_artifact_handoff"
+    / "example_02_artifact_handoff"
     / "fixtures"
 )
 
@@ -180,7 +180,7 @@ def test_extractor_uses_raw_input_when_delegate_args_empty() -> None:
 
 
 def test_subchain_policy_on_extractor() -> None:
-    from examples.example_01_artifact_handoff.agents import Extractor
+    from examples.example_02_artifact_handoff.agents import Extractor
 
     extractor = Extractor(
         state_schema=HandoffState,
@@ -193,21 +193,21 @@ def test_subchain_policy_on_extractor() -> None:
 
 
 def test_build_run_config_includes_tags_and_thread() -> None:
-    from examples.example_01_artifact_handoff.tracing import build_run_config
+    from examples.example_02_artifact_handoff.tracing import build_run_config
 
     config = build_run_config(
         thread_id="test-thread-1",
-        run_name="example-01-scripted-ok",
+        run_name="example-02-scripted-ok",
         tags=["scripted-ok"],
     )
-    assert config["run_name"] == "example-01-scripted-ok"
-    assert config["tags"] == ["example-01", "scripted-ok"]
+    assert config["run_name"] == "example-02-scripted-ok"
+    assert config["tags"] == ["example-02", "scripted-ok"]
     assert config["metadata"]["thread_id"] == "test-thread-1"
     assert config["configurable"]["thread_id"] == "test-thread-1"
 
 
 def test_create_openai_model_requires_api_key(monkeypatch) -> None:
-    from examples.example_01_artifact_handoff.model import create_openai_model
+    from examples.example_02_artifact_handoff.model import create_openai_model
 
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     with pytest.raises(RuntimeError, match="OPENAI_API_KEY"):
@@ -216,7 +216,7 @@ def test_create_openai_model_requires_api_key(monkeypatch) -> None:
 
 def test_llm_extractor_ok_pipeline_scripted() -> None:
     """LLMExtractor pipeline succeeds with scripted model (invoice_ok.txt values)."""
-    from examples.example_01_artifact_handoff.model import RuleBasedModel
+    from examples.example_02_artifact_handoff.model import RuleBasedModel
 
     root = compile_root(use_llm_extractor=True)
     context = BaseContext(model=RuleBasedModel.for_llm_extractor_ok())
@@ -233,7 +233,7 @@ def test_llm_extractor_ok_pipeline_scripted() -> None:
 
 def test_llm_extractor_fail_pipeline_scripted() -> None:
     """LLMExtractor pipeline produces structured error when invoice amount is unreadable."""
-    from examples.example_01_artifact_handoff.model import RuleBasedModel
+    from examples.example_02_artifact_handoff.model import RuleBasedModel
 
     root = compile_root(use_llm_extractor=True)
     context = BaseContext(model=RuleBasedModel.for_llm_extractor_fail())
@@ -252,7 +252,7 @@ def test_llm_extractor_fail_pipeline_scripted() -> None:
 
 
 def test_subchain_policy_on_llm_extractor() -> None:
-    from examples.example_01_artifact_handoff.agents import LLMExtractor
+    from examples.example_02_artifact_handoff.agents import LLMExtractor
 
     extractor = LLMExtractor(
         state_schema=HandoffState,

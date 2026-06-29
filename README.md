@@ -11,19 +11,19 @@ git clone https://github.com/korrino222/langgraph-hierarchies-examples.git
 cd langgraph-hierarchies-examples
 cp .env.example .env   # optional: OPENAI_API_KEY, LANGCHAIN_API_KEY
 uv sync
-uv run python -m examples.example_01_artifact_handoff --scripted-ok
+uv run python -m examples.example_01_monolith --scripted-ok
 ```
 
-See [DESIGN.md](./DESIGN.md) for `--llm-ok`, `--replay`, and LangSmith tracing.
+See [DESIGN.md](./DESIGN.md) for example 02 (decomposed handoff), `--llm-ok`, `--replay`, and LangSmith tracing.
 
 ## Status
 
-Example **01 — Artifact handoff** is implemented. See [DESIGN.md](./DESIGN.md) for run modes, LangSmith tracing, and article mapping. Examples 02–04 are planned.
+Examples **01 — Monolith** and **02 — Artifact handoff** are implemented. See [DESIGN.md](./DESIGN.md) for run modes, LangSmith tracing, and article mapping. Examples 03–04 are planned.
 
-Planned example ladder:
+Example ladder:
 
-1. **Artifact handoff** — isolated context, `pipeline_artifact` only
-2. **Responsibility move** — smell in monolith, boundary in decomposed
+1. **Monolith** — orchestrator, extractor, and formatter in one agent (`example_01_monolith`)
+2. **Artifact handoff** — isolated context, `pipeline_artifact` only (`example_02_artifact_handoff`)
 3. **Batch TodoGraph** — flat context at scale (optional v0.1)
 4. **IRS full** — monolith vs decomposed comparison
 
