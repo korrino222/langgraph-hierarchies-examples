@@ -39,7 +39,7 @@ class MonolithRoot(ReactGraph):
 
 
 def compile_root() -> Any:
-    """Compile the monolith root graph without subchain_policy or subgraphs."""
+    """Compile the monolith root graph without subagent_policy or subgraphs."""
     root = MonolithRoot(
         state_schema=MonolithState,
         context_schema=BaseContext,

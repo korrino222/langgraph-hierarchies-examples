@@ -37,14 +37,14 @@ Optional: `--project my-traces` overrides `LANGCHAIN_PROJECT` for a single run.
 | Signal | Where in code |
 |--------|---------------|
 | **Single goal** | `MONOLITH_GOAL` in [`agents.py`](src/examples/example_01_monolith/agents.py); printed in CLI |
-| **Flat context** | No subgraphs, no `SubchainPolicy`; CLI prints `messages in context: N` |
+| **Flat context** | No subgraphs, no `SubagentPolicy`; CLI prints `messages in context: N` |
 | **Same task** | Same fixtures as example 02 (`raw_ok.txt`, `raw_fail.txt`) |
 | **Failure path** | `format_expense_card` never called on bad input; `test_fail_pipeline_produces_error_no_format_call` |
 
 ### Graph topology
 
 ```
-MonolithRoot (ReactGraph, no subchain_policy, no subgraphs)
+MonolithRoot (ReactGraph, no subagent_policy, no subgraphs)
     tools: extract_expense, format_expense_card, finish_task
 ```
 
@@ -103,7 +103,7 @@ Optional: `--project my-traces` overrides `LANGCHAIN_PROJECT` for a single run.
 ### Graph topology
 
 ```
-HandoffRoot (ReactGraph, no subchain_policy)
+HandoffRoot (ReactGraph, no subagent_policy)
   ├── Extractor (SimpleGraph, ARTIFACT_POLICY)
   └── Formatter (SimpleGraph, ARTIFACT_POLICY)
 ```

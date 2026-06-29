@@ -179,17 +179,17 @@ def test_extractor_uses_raw_input_when_delegate_args_empty() -> None:
     assert extraction["vendor"] == "XYZ Consulting"
 
 
-def test_subchain_policy_on_extractor() -> None:
+def test_subagent_policy_on_extractor() -> None:
     from examples.example_02_artifact_handoff.agents import Extractor
 
     extractor = Extractor(
         state_schema=HandoffState,
         context_schema=BaseContext,
-        subchain_policy=ARTIFACT_POLICY,
+        subagent_policy=ARTIFACT_POLICY,
     ).compile_graph()
-    assert extractor.subchain_policy is not None
-    assert extractor.subchain_policy.clear_messages is True
-    assert "pipeline_artifact" in extractor.subchain_policy.merge_fields
+    assert extractor.subagent_policy is not None
+    assert extractor.subagent_policy.clear_messages is True
+    assert "pipeline_artifact" in extractor.subagent_policy.merge_fields
 
 
 def test_build_run_config_includes_tags_and_thread() -> None:
@@ -251,14 +251,14 @@ def test_llm_extractor_fail_pipeline_scripted() -> None:
     assert "formatter" not in tool_names
 
 
-def test_subchain_policy_on_llm_extractor() -> None:
+def test_subagent_policy_on_llm_extractor() -> None:
     from examples.example_02_artifact_handoff.agents import LLMExtractor
 
     extractor = LLMExtractor(
         state_schema=HandoffState,
         context_schema=BaseContext,
-        subchain_policy=ARTIFACT_POLICY,
+        subagent_policy=ARTIFACT_POLICY,
     ).compile_graph()
-    assert extractor.subchain_policy is not None
-    assert extractor.subchain_policy.clear_messages is True
-    assert "pipeline_artifact" in extractor.subchain_policy.merge_fields
+    assert extractor.subagent_policy is not None
+    assert extractor.subagent_policy.clear_messages is True
+    assert "pipeline_artifact" in extractor.subagent_policy.merge_fields

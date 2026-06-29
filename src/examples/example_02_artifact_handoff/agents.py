@@ -125,7 +125,7 @@ class HandoffRoot(ReactGraph):
             extractor = LLMExtractor(
                 state_schema=HandoffState,
                 context_schema=BaseContext,
-                subchain_policy=ARTIFACT_POLICY,
+                subagent_policy=ARTIFACT_POLICY,
                 tools=[report_extraction],
                 message_system=EXTRACTOR_LLM_SYSTEM,
                 message_reasoning="Extract the expense fields now.",
@@ -134,12 +134,12 @@ class HandoffRoot(ReactGraph):
             extractor = Extractor(
                 state_schema=HandoffState,
                 context_schema=BaseContext,
-                subchain_policy=ARTIFACT_POLICY,
+                subagent_policy=ARTIFACT_POLICY,
             ).compile_graph()
         formatter = Formatter(
             state_schema=HandoffState,
             context_schema=BaseContext,
-            subchain_policy=ARTIFACT_POLICY,
+            subagent_policy=ARTIFACT_POLICY,
         ).compile_graph()
         return super().compile_graph(
             *args,
@@ -149,7 +149,7 @@ class HandoffRoot(ReactGraph):
 
 
 def compile_root(*, use_llm_extractor: bool = False) -> Any:
-    """Compile the handoff root graph without subchain_policy on root."""
+    """Compile the handoff root graph without subagent_policy on root."""
     root = HandoffRoot(
         state_schema=HandoffState,
         context_schema=BaseContext,
@@ -167,7 +167,7 @@ def compile_formatter() -> Any:
     return Formatter(
         state_schema=HandoffState,
         context_schema=BaseContext,
-        subchain_policy=ARTIFACT_POLICY,
+        subagent_policy=ARTIFACT_POLICY,
     ).compile_graph()
 
 
